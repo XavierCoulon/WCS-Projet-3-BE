@@ -32,8 +32,10 @@
   "dependencies": {
     "express": "^4.18.2"
   },
+  "husky": {
+    "pre-commit": "lint-staged"
+  },
   "lint-staged": {
-    "*.ts": "eslint --fix ",
-    "*.{ts,js,css,md,html,json}": "prettier --cache --write"
+    "**/*.ts": "tsc-files --noEmit"
   }
 }
