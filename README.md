@@ -13,7 +13,7 @@ It's pre-configured with a set of tools which'll help students produce industry-
 
 ### Available Commands
 
-- `dev` : Starts both servers (frontend + backend) in one terminal
+- `dev` : Start the application in development environment
 - `build` : Compile Typescript code to Javascript in the dist folder
 - `start` : Starts the application
 - `setup` : Launch npm install and huskly install to setup the project
