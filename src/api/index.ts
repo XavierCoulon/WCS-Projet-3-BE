@@ -10,6 +10,7 @@ import pages_static_sections from "./pages-sections-statics/routes";
 import pages_dynamic_sections from "./pages-sections-dynamics/routes";
 import pagesAdvertisings from "./pages-advertisings/routes";
 import tags from "./tag/routes";
+import users from "./users/routes";
 
 const router = Router();
 
@@ -23,5 +24,6 @@ router.use("/advertisings", advertisings);
 router.use("/pages", pages);
 router.use("/pagesAdvertisings", pagesAdvertisings);
 router.use("/tags", tags);
+router.use("/users", users);
 
 export default router;
