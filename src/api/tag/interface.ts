@@ -1,6 +1,6 @@
 import { ResponseError } from "../../interfaces/interfaces";
 import { RequestHandler } from "express";
-import { Tag } from ".prisma/client";
+import { Tag } from "@prisma/client";
 
 type TagBody = {
   name: string;
