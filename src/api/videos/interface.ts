@@ -1,6 +1,6 @@
 import { Video } from "@prisma/client";
 import { RequestHandler } from "express";
-import { ResponseError, ResponseValidation } from "../../interfaces/iterfaces";
+import { ResponseError, ResponseValidation } from "../../interfaces/interfaces";
 
 type TVideoBody = Omit<Video, "id" | "createdDate" | "updatedDate" | "nbViews">;
 
