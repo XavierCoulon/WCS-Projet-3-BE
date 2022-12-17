@@ -8,7 +8,8 @@ const getOneUser: UserHandlers["getOne"] = async (req, res) => {
     const user = await prisma.user.findFirstOrThrow({
       where: { id },
     });
-    res.status(200).json(user);
+    const { password: removedPassword, ...userWithoutPassword } = user;
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
