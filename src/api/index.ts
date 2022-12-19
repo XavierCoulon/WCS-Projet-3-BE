@@ -24,7 +24,7 @@ router.use("/pages-dynamic-sections", pages_dynamic_sections);
 router.use("/videos", videos);
 router.use("/advertisings", advertisings);
 router.use("/pages", pages);
-router.use("/pagesAdvertisings", pagesAdvertisings);
+router.use("/pages-advertisings", pagesAdvertisings);
 router.use("/tags", tags);
 router.use("/users", users);
 
