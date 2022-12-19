@@ -50,6 +50,8 @@ model User {
   password         String
   imageUrl         String?
   role             Role    @default(USER)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
   favorites_videos Video[] @relation("users_favorites")
 }
 

@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import auth from "./auth/routes";
 import videos from "./videos/routes";
 import categories from "./category/routes";
 import dynamic_sections from "./section-dynamic/routes";
@@ -14,6 +15,7 @@ import users from "./users/routes";
 
 const router = Router();
 
+router.use("/auth", auth);
 router.use("/categories", categories);
 router.use("/dynamic-sections", dynamic_sections);
 router.use("/static-sections", static_sections);
@@ -22,7 +24,7 @@ router.use("/pages-dynamic-sections", pages_dynamic_sections);
 router.use("/videos", videos);
 router.use("/advertisings", advertisings);
 router.use("/pages", pages);
-router.use("/pagesAdvertisings", pagesAdvertisings);
+router.use("/pages-advertisings", pagesAdvertisings);
 router.use("/tags", tags);
 router.use("/users", users);
 
