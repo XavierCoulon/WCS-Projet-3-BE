@@ -2,7 +2,7 @@ import { Video } from "@prisma/client";
 import { RequestHandler } from "express";
 import { ResponseError, ResponseValidation } from "../../interfaces/interfaces";
 
-type TVideoBody = Omit<Video, "id" | "createdDate" | "updatedDate" | "nbViews">;
+type TVideoBody = Omit<Video, "id" | "createdAt" | "updatedAt" | "nbViews">;
 
 export interface VideoHandlers {
   getAll: RequestHandler<null, Video[] | ResponseError, null>;

@@ -2,7 +2,7 @@ import { Advertising } from "@prisma/client";
 import { RequestHandler } from "express";
 import { ResponseError, ResponseValidation } from "../../interfaces/interfaces";
 
-type TAdvertisingBody = Omit<Advertising, "id">;
+type TAdvertisingBody = Omit<Advertising, "id" | "createdAt" | "updatedAt">;
 
 export interface AdvertisingHandlers {
   getAll: RequestHandler<null, Advertising[] | ResponseError, null>;
