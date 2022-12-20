@@ -54,8 +54,6 @@ model User {
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
   role             Role    @default(USER)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
   favorites_videos Video[] @relation("users_favorites")
 }
 
