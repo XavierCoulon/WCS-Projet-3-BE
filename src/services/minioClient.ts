@@ -1,4 +1,4 @@
-import minio from "minio";
+import * as minio from "minio";
 
 const { MINIO_ENDPOINT, MINIO_USERNAME, MINIO_PASSWORD } = process.env;
 
