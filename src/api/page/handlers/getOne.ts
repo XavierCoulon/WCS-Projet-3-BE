@@ -8,6 +8,35 @@ const getOnePage: PageHandlers["getOne"] = async (req, res) => {
       where: {
         id: id,
       },
+      include: {
+        pagesAdvertisings: {
+          include: {
+            advertisings: true,
+          },
+        },
+        pagesSectionsDynamic: {
+          include: {
+            sectionsDynamic: {
+              include: {
+                categories: {
+                  include: {
+                    videos: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        pagesSectionsStatic: {
+          include: {
+            sectionsStatics: {
+              include: {
+                videos: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     res.status(200).json(page);
