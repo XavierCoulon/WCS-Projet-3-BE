@@ -8,11 +8,14 @@ import cors from "cors";
 // If you have more origins you would like to add, you can add them to the array below.
 const allowedOrigins = ["*"];
 
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-};
-
-app.use(cors(options)); /* NEW */
+app.use(
+  cors({
+    origin: allowedOrigins,
+    exposedHeaders: ["content-type", "Authorization"],
+    allowedHeaders: ["Authorization", "content-type"],
+    credentials: true,
+  })
+); /* NEW */
 
 app.use(Express.json());
 
