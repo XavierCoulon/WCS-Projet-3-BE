@@ -35,7 +35,7 @@ const createAdd: AdvertisingHandlers["create"] = async (req, res) => {
     const advertisingToCreate = await prisma.advertising.create({
       data: {
         description: fields.description.join(""),
-        imageUrl: `https://minio-btz-09-2022-s3.biarritz-1.wilders.dev/origin/ads/images/${files.file[0].originalFilename}`,
+        imageUrl: `${process.env.MINIO_ENDPOINT}/origin/ads/images/${files.file[0].originalFilename}`,
         linkTo: fields.linkTo.join(""),
         title: fields.title.join(""),
       },
