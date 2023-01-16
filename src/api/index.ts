@@ -12,14 +12,14 @@ import pages_dynamic_sections from "./pages-sections-dynamics/routes";
 import pagesAdvertisings from "./pages-advertisings/routes";
 import tags from "./tag/routes";
 import users from "./users/routes";
-import checkToken from "../middlewares/checkToken";
+// import checkToken from "../middlewares/checkToken";
 
 const router = Router();
 
 router.use("/auth", auth);
 
 // This middleware check the validity of the JWT token and add the payload to the request object
-router.use(checkToken);
+// router.use(checkToken);
 
 router.use("/categories", categories);
 router.use("/dynamic-sections", dynamic_sections);
