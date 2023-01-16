@@ -1,5 +1,6 @@
 import Express from "express";
 import api from "./api";
+import CookieParser from "cookie-parser";
 
 const app = Express();
 
@@ -8,11 +9,10 @@ import cors from "cors";
 // If you have more origins you would like to add, you can add them to the array below.
 const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
 
+app.use(CookieParser());
 app.use(
   cors({
     origin: allowedOrigins,
-    exposedHeaders: ["content-type", "Authorization"],
-    allowedHeaders: ["Authorization", "content-type"],
     credentials: true,
   })
 ); /* NEW */
