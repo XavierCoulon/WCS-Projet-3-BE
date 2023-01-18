@@ -2,12 +2,13 @@ import { FavoriteHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
 const createFavorite: FavoriteHandlers["add"] = async (req, res) => {
+  const { id } = req.user;
   try {
-    const { userId, videoId } = req.params;
+    const { videoId } = req.body;
     const favorites = await prisma.user
       .update({
         where: {
-          id: userId,
+          id,
         },
         data: {
           favorites_videos: {

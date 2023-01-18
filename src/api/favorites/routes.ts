@@ -3,9 +3,9 @@ import favoriteController from "./controller";
 
 const router = Router();
 
-router.post("/add/:userId/:videoId", favoriteController.add);
-router.post("/remove/:userId/:videoId", favoriteController.remove);
+router.post("/add", favoriteController.add);
+router.post("/remove", favoriteController.remove);
 router.get("/", favoriteController.getAll);
-router.get("/isFavorite/:userId/:videoId", favoriteController.isFavorite);
+router.get("/:videoId/isFavorite", favoriteController.isFavorite);
 
 export default router;
