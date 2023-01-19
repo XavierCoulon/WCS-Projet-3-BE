@@ -1,7 +1,7 @@
 import { SectionStaticHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
-const updateSectionStatic: SectionStaticHandlers["update"] = async (
+const updateSectionStatic: SectionStaticHandlers["connectVideo"] = async (
   req,
   res
 ) => {

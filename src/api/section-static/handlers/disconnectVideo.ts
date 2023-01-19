@@ -1,7 +1,7 @@
 import { SectionStaticHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
-const updateSectionStatic: SectionStaticHandlers["update"] = async (
+const updateSectionStatic: SectionStaticHandlers["disconnectVideo"] = async (
   req,
   res
 ) => {
@@ -17,7 +17,7 @@ const updateSectionStatic: SectionStaticHandlers["update"] = async (
         description,
         isHero,
         videos: {
-          connect: {
+          disconnect: {
             id: videoId,
           },
         },

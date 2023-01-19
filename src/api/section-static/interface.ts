@@ -6,6 +6,7 @@ type SectionStaticBody = {
   title: string;
   description: string;
   isHero: boolean;
+  videoId: string;
 };
 
 export interface SectionStaticHandlers {
@@ -22,4 +23,14 @@ export interface SectionStaticHandlers {
     SectionStaticBody
   >;
   delete: RequestHandler<{ id: string }, Section_Static | ResponseError, null>;
+  connectVideo: RequestHandler<
+    { id: string },
+    Section_Static | ResponseError,
+    SectionStaticBody
+  >;
+  disconnectVideo: RequestHandler<
+    { id: string },
+    Section_Static | ResponseError,
+    SectionStaticBody
+  >;
 }
