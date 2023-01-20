@@ -5,9 +5,13 @@ import prisma from "../../../../prisma/client";
 const getOneUser: UserHandlers["getOne"] = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await prisma.user.findFirstOrThrow({
+    const user = await prisma.user.findUniqueOrThrow({
       where: { id },
+      include: {
+        favorites_videos: true,
+      },
     });
+
     const { password: removedPassword, ...userWithoutPassword } = user;
     res.status(200).json(userWithoutPassword);
   } catch (error) {

@@ -20,6 +20,8 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
       formaDataFields[fieldname] = val;
     });
 
+    let thumbnailUrl = "";
+    let teaserUrl = "";
     bb.on(
       "file",
       async (
@@ -42,20 +44,43 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
         const metadata = {
           "Content-type": fileData.mimeType,
         };
+        if (fileData.filename.substring(0, 2) === "tn") {
+          await uploadToS3(
+            passThrough,
+            `/thumbnails/${fileData.filename}`,
+            metadata
+          );
+          thumbnailUrl = `https://${process.env.MINIO_ENDPOINT}/origin/thumbnails/${fileData.filename}`;
+        }
+        if (fileData.filename.substring(0, 2) === "te") {
+          await uploadToS3(
+            passThrough,
+            `/teasers/${fileData.filename}`,
+            metadata
+          );
+          teaserUrl = `https://${process.env.MINIO_ENDPOINT}/origin/teasers/${fileData.filename}`;
+        }
+        if (fileData.filename.substring(0, 2) === "vi") {
+          await uploadToS3(
+            passThrough,
+            `/videos/${fileData.filename}`,
+            metadata
+          );
+          console.log(formaDataFields);
+          const videoToCreate = await prisma.video.create({
+            data: {
+              ...formaDataFields,
+              display: true,
+              isPublic: true,
+              duration: 0,
+              videoUrl: `https://${process.env.MINIO_ENDPOINT}/origin/videos/${fileData.filename}`,
+              thumbnailUrl: thumbnailUrl,
+              teaserUrl: teaserUrl,
+            },
+          });
 
-        await uploadToS3(passThrough, `/videos/${fileData.filename}`, metadata);
-
-        const videoToCreate = await prisma.video.create({
-          data: {
-            ...formaDataFields,
-            display: true,
-            isPublic: true,
-            duration: 0,
-            videoUrl: `https://${process.env.MINIO_ENDPOINT}/origin/videos/${fileData.filename}`,
-          },
-        });
-
-        res.status(200).json(videoToCreate);
+          res.status(200).json(videoToCreate);
+        }
       }
     );
 
