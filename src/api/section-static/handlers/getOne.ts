@@ -11,6 +11,9 @@ const getOneSectionStatic: SectionStaticHandlers["getOne"] = async (
       where: {
         id: id,
       },
+      include: {
+        videos: true,
+      },
     });
 
     res.status(200).json(section);

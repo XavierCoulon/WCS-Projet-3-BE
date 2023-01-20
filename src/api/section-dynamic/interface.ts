@@ -8,6 +8,7 @@ type SectionDynamicBody = {
   max: number;
   isGrid: boolean;
   categoryId: string;
+  videoId: string;
 };
 
 export interface SectionDynamicHandlers {
