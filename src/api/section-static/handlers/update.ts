@@ -7,7 +7,7 @@ const updateSectionStatic: SectionStaticHandlers["update"] = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title, description, isHero, videoId } = req.body;
+    const { title, description, isHero } = req.body;
     const section = await prisma.section_Static.update({
       where: {
         id: id,
@@ -16,11 +16,6 @@ const updateSectionStatic: SectionStaticHandlers["update"] = async (
         title,
         description,
         isHero,
-        videos: {
-          connect: {
-            id: videoId,
-          },
-        },
       },
     });
     res.status(201).json(section);

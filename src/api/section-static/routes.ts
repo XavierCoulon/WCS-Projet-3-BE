@@ -6,10 +6,10 @@ const router = Router();
 
 router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
-router.put("/:id/add-video", controller.connectVideo);
-router.put("/:id/remove-video", controller.disconnectVideo);
 router.post("/", controller.create);
 router.put("/:id", controller.update);
+router.put("/:id/add-video", controller.connectVideo);
+router.put("/:id/remove-video", controller.disconnectVideo);
 router.delete("/:id", controller.delete);
 
 export default router;
