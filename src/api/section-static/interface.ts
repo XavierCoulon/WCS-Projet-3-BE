@@ -9,6 +9,13 @@ type SectionStaticBody = {
   videoId: string;
 };
 
+type SectionStaticBodyWithVideos = {
+  title: string;
+  description: string;
+  isHero: boolean;
+  videoIds: { id: string; status: boolean }[];
+};
+
 export interface SectionStaticHandlers {
   getAll: RequestHandler<null, Section_Static[] | ResponseError, null>;
   getOne: RequestHandler<{ id: string }, Section_Static | ResponseError, null>;
@@ -32,5 +39,10 @@ export interface SectionStaticHandlers {
     { id: string },
     Section_Static | ResponseError,
     SectionStaticBody
+  >;
+  createWithVideos: RequestHandler<
+    null,
+    Section_Static | ResponseError,
+    SectionStaticBodyWithVideos
   >;
 }
