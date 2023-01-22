@@ -24,4 +24,5 @@ export interface AuthController {
     TRegisterBody,
     null
   >;
+  signOut: RequestHandler<null, null, null, null>;
 }
