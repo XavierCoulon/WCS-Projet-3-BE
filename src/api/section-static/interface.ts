@@ -13,7 +13,7 @@ type SectionStaticBodyWithVideos = {
   title: string;
   description: string;
   isHero: boolean;
-  videoIds: { id: string; status: boolean }[]};
+  videoIds: { id: string; status: boolean }[];
 };
 
 export interface SectionStaticHandlers {
