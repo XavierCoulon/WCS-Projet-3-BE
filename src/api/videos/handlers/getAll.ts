@@ -19,7 +19,7 @@ const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
               categoryId: true,
               description: true,
               isPublic: true,
-              videoUrl: !isGuest,
+              videoUrl: !isGuest, // replace by true for testing back-office links
               duration: true,
               nbViews: true,
               teaserUrl: true,
@@ -45,7 +45,7 @@ const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
               categoryId: true,
               description: true,
               isPublic: true,
-              videoUrl: !isGuest,
+              videoUrl: !isGuest, // replace by true for testing back-office links
               duration: true,
               nbViews: true,
               teaserUrl: true,
