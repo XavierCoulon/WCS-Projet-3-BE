@@ -4,27 +4,36 @@ import { Page } from ".prisma/client";
 
 type PageBody = {
   title: string;
+  pagesSectionsStatic?: {
+    id: string;
+  }[];
+  pagesSectionsDynamic?: {
+    id: string;
+  }[];
+  pagesAdvertisings?: {
+    id: string;
+  }[];
 };
 
 type PageBodyWithSections = {
   title: string;
-  pagesSectionsStatic?: {
+  pagesSectionsStaticData?: {
     id: string;
     position: number;
-    status: boolean;
-    pageId: string;
+    status?: boolean;
+    pageId?: string;
   }[];
-  pagesSectionsDynamic?: {
+  pagesSectionsDynamicData?: {
     id: string;
     position: number;
-    status: boolean;
-    pageId: string;
+    status?: boolean;
+    pageId?: string;
   }[];
-  pagesAdvertisings?: {
+  pagesAdvertisingsData?: {
     id: string;
     position: number;
-    status: boolean;
-    pageId: string;
+    status?: boolean;
+    pageId?: string;
   }[];
 };
 

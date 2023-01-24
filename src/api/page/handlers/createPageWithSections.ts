@@ -1,4 +1,3 @@
-import { Page } from ".prisma/client";
 import { PageHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
@@ -9,21 +8,42 @@ const createPageWithSections: PageHandlers["createWithSections"] = async (
   try {
     const {
       title,
-      pagesSectionsStatic,
-      pagesSectionsDynamic,
-      pagesAdvertisings,
+      pagesSectionsStaticData,
+      pagesSectionsDynamicData,
+      pagesAdvertisingsData,
     } = req.body;
     const newPage = await prisma.page.create({
       data: {
         title,
         pagesSectionsStatic: {
-          connect: pagesSectionsStatic?.map((item) => ({ id: item.id })) || [],
+          create: pagesSectionsStaticData?.map((section) => ({
+            position: section.position,
+            sectionsStatics: {
+              connect: {
+                id: section.id,
+              },
+            },
+          })),
         },
         pagesSectionsDynamic: {
-          connect: pagesSectionsDynamic?.map((item) => ({ id: item.id })) || [],
+          create: pagesSectionsDynamicData?.map((section) => ({
+            position: section.position,
+            sectionsDynamic: {
+              connect: {
+                id: section.id,
+              },
+            },
+          })),
         },
         pagesAdvertisings: {
-          connect: pagesAdvertisings?.map((item) => ({ id: item.id })) || [],
+          create: pagesAdvertisingsData?.map((section) => ({
+            position: section.position,
+            advertisings: {
+              connect: {
+                id: section.id,
+              },
+            },
+          })),
         },
       },
     });

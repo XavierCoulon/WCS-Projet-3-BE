@@ -3,11 +3,11 @@ import { VideoHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
 const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
-  const { role } = req.user;
+  // const { role } = req.user;
   const { favorite } = req.query;
   console.log(req.query);
 
-  const isGuest = role === "GUEST";
+  // const isGuest = role === "GUEST";
   try {
     const videos =
       favorite === "true"
