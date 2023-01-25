@@ -37,54 +37,54 @@ model Video {
 model Category {
   id              String            @id @unique @default(uuid())
   name            String
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   videos          Video[]
   sectionsDynamic Section_Dynamic[]
 }
 
 model User {
-  id               String  @id @unique @default(uuid())
+  id               String   @id @unique @default(uuid())
   firstname        String
   lastname         String
-  username         String  @unique
-  email            String  @unique
+  username         String   @unique
+  email            String   @unique
   password         String
   imageUrl         String?
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
-  role             Role    @default(USER)
-  favorites_videos Video[] @relation("users_favorites")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  role             Role     @default(USER)
+  favorites_videos Video[]  @relation("users_favorites")
 }
 
 model Tag {
-  id              String  @id @unique @default(uuid())
-  name            String
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  videos Video[]
+  id        String   @id @unique @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  videos    Video[]
 }
 
 model Section_Dynamic {
-  id                   String      @id @unique @default(uuid())
+  id                   String                    @id @unique @default(uuid())
   title                String
   description          String
-  max                  Int         @default(10)
-  isGrid               Boolean     @default(false)
-  createdAt            DateTime    @default(now())
-  updatedAt            DateTime    @updatedAt
-  categories           Category    @relation(fields: [categoryId], references: [id])
+  max                  Int                       @default(10)
+  isGrid               Boolean                   @default(false)
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @updatedAt
+  categories           Category                  @relation(fields: [categoryId], references: [id])
   categoryId           String
   pagesSectionsDynamic Pages_Sections_Dynamics[]
 }
 
 model Section_Static {
-  id                  String      @id @unique @default(uuid())
+  id                  String                   @id @unique @default(uuid())
   title               String
   description         String
-  isHero              Boolean     @default(false)
-  createdAt           DateTime    @default(now())
-  updatedAt           DateTime    @updatedAt
+  isHero              Boolean                  @default(false)
+  createdAt           DateTime                 @default(now())
+  updatedAt           DateTime                 @updatedAt
   videos              Video[]
   pagesSectionsStatic Pages_Sections_Statics[]
 }
@@ -92,8 +92,8 @@ model Section_Static {
 model Page {
   id                   String                    @id @unique @default(uuid())
   title                String
-  createdAt            DateTime    @default(now())
-  updatedAt            DateTime    @updatedAt
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @updatedAt
   pagesSectionsStatic  Pages_Sections_Statics[]
   pagesSectionsDynamic Pages_Sections_Dynamics[]
   pagesAdvertisings    Pages_Advertisings[]
@@ -104,9 +104,9 @@ model Pages_Sections_Statics {
   position         Int            @default(0)
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
-  sectionsStatics  Section_Static @relation(fields: [sectionsStaticId], references: [id])
+  sectionsStatics  Section_Static @relation(fields: [sectionsStaticId], references: [id], onDelete: Cascade)
   sectionsStaticId String
-  pages            Page           @relation(fields: [pageId], references: [id])
+  pages            Page           @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId           String
 }
 
@@ -115,20 +115,20 @@ model Pages_Sections_Dynamics {
   position          Int             @default(0)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
-  pages             Page            @relation(fields: [pageId], references: [id])
+  pages             Page            @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId            String
   sectionsDynamic   Section_Dynamic @relation(fields: [sectionsDynamicId], references: [id])
   sectionsDynamicId String
 }
 
 model Advertising {
-  id                String      @id @unique @default(uuid())
+  id                String               @id @unique @default(uuid())
   title             String
   description       String
   imageUrl          String
   linkTo            String
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
   pagesAdvertisings Pages_Advertisings[]
 }
 
@@ -137,7 +137,7 @@ model Pages_Advertisings {
   position      Int         @default(0)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  pages         Page        @relation(fields: [pageId], references: [id])
+  pages         Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId        String
   advertisings  Advertising @relation(fields: [advertisingId], references: [id])
   advertisingId String
