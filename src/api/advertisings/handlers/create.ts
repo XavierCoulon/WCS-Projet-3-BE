@@ -21,7 +21,7 @@ const createAdd: AdvertisingHandlers["create"] = async (req, res) => {
 
     minioClient.putObject(
       "origin",
-      `/ads/images/${files.file[0].originalFilename}`,
+      `/ads/images/${fields.title.join("")}`,
       file,
       metadata as any,
       (err, etag) => {
