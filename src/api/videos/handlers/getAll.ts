@@ -3,11 +3,11 @@ import { VideoHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
 const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
-  const { role } = req.user;
+  // const { role } = req.user;
   const { favorite } = req.query;
   console.log(req.query);
 
-  const isGuest = role === "GUEST";
+  // const isGuest = role === "GUEST";
   try {
     const videos =
       favorite === "true"
@@ -19,7 +19,7 @@ const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
               categoryId: true,
               description: true,
               isPublic: true,
-              videoUrl: !isGuest, // replace by true for testing back-office links
+              videoUrl: true, // replace by true for testing back-office links
               duration: true,
               nbViews: true,
               teaserUrl: true,
@@ -45,7 +45,7 @@ const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
               categoryId: true,
               description: true,
               isPublic: true,
-              videoUrl: !isGuest, // replace by true for testing back-office links
+              videoUrl: true, // replace by true for testing back-office links
               duration: true,
               nbViews: true,
               teaserUrl: true,
