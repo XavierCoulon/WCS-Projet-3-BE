@@ -4,6 +4,7 @@ import prisma from "../../../../prisma/client";
 
 const getAllVideos: FavoriteHandlers["getAll"] = async (req, res) => {
   const { id } = req.user;
+  const { limit } = req.query;
 
   try {
     const favoritesVideos = await prisma.user
@@ -12,7 +13,9 @@ const getAllVideos: FavoriteHandlers["getAll"] = async (req, res) => {
           id,
         },
       })
-      .favorites_videos();
+      .favorites_videos({
+        take: limit ? parseInt(String(limit)) : 1000,
+      });
 
     res.status(200).json(favoritesVideos);
   } catch (error) {
