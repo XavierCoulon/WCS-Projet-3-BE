@@ -26,7 +26,7 @@ model Video {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   nbViews         Int              @default(0)
-  duration        Int
+  duration        Float
   category        Category         @relation(fields: [categoryId], references: [id])
   categoryId      String
   users_favorites User[]           @relation("users_favorites")

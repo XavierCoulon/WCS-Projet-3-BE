@@ -4,6 +4,7 @@ import prisma from "../../../../prisma/client";
 import busboy from "busboy";
 import { PassThrough, Stream } from "stream";
 import uploadToS3 from "../../../utils/uploadToMinio";
+import durationParser from "../../../utils/durationParser";
 
 const createVideo: VideoHandlers["create"] = async (req, res) => {
   try {
@@ -14,6 +15,7 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
       teaserUrl: "",
       thumbnailUrl: "",
       title: "",
+      duration: "",
     };
 
     bb.on("field", (fieldname: keyof typeof formaDataFields, val: string) => {
@@ -72,7 +74,7 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
               ...formaDataFields,
               display: true,
               isPublic: true,
-              duration: 0,
+              duration: durationParser(formaDataFields.duration),
               videoUrl: `https://${process.env.MINIO_ENDPOINT}/origin/videos/${fileData.filename}`,
               thumbnailUrl: thumbnailUrl,
               teaserUrl: teaserUrl,
