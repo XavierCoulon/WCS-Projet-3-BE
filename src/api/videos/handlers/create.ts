@@ -5,6 +5,7 @@ import busboy from "busboy";
 import { PassThrough, Stream } from "stream";
 import uploadToS3 from "../../../utils/uploadToMinio";
 import durationParser from "../../../utils/durationParser";
+import slugify from "../../../utils/slugify";
 
 const createVideo: VideoHandlers["create"] = async (req, res) => {
   try {
@@ -16,6 +17,8 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
       thumbnailUrl: "",
       title: "",
       duration: "",
+      display: "",
+      isPublic: "",
     };
 
     bb.on("field", (fieldname: keyof typeof formaDataFields, val: string) => {
@@ -49,33 +52,39 @@ const createVideo: VideoHandlers["create"] = async (req, res) => {
         if (fileData.filename.substring(0, 2) === "tn") {
           await uploadToS3(
             passThrough,
-            `/thumbnails/${fileData.filename}`,
+            `/thumbnails/${slugify(formaDataFields.title)}-thumbnail`,
             metadata
           );
-          thumbnailUrl = `https://${process.env.MINIO_ENDPOINT}/origin/thumbnails/${fileData.filename}`;
+          thumbnailUrl = `https://${
+            process.env.MINIO_ENDPOINT
+          }/origin/thumbnails/${slugify(formaDataFields.title)}-thumbnail`;
         }
         if (fileData.filename.substring(0, 2) === "te") {
           await uploadToS3(
             passThrough,
-            `/teasers/${fileData.filename}`,
+            `/teasers/${slugify(formaDataFields.title)}-teaser`,
             metadata
           );
-          teaserUrl = `https://${process.env.MINIO_ENDPOINT}/origin/teasers/${fileData.filename}`;
+          teaserUrl = `https://${
+            process.env.MINIO_ENDPOINT
+          }/origin/teasers/${slugify(formaDataFields.title)}-teaser`;
         }
         if (fileData.filename.substring(0, 2) === "vi") {
           await uploadToS3(
             passThrough,
-            `/videos/${fileData.filename}`,
+            `/videos/${slugify(formaDataFields.title)}`,
             metadata
           );
           console.log(formaDataFields);
           const videoToCreate = await prisma.video.create({
             data: {
               ...formaDataFields,
-              display: true,
-              isPublic: true,
+              display: formaDataFields.display === "true",
+              isPublic: formaDataFields.isPublic === "true",
               duration: durationParser(formaDataFields.duration),
-              videoUrl: `https://${process.env.MINIO_ENDPOINT}/origin/videos/${fileData.filename}`,
+              videoUrl: `https://${
+                process.env.MINIO_ENDPOINT
+              }/origin/videos/${slugify(formaDataFields.title)}`,
               thumbnailUrl: thumbnailUrl,
               teaserUrl: teaserUrl,
             },
