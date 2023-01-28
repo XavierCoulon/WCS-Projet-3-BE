@@ -10,33 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+// }
 
 model Video {
   id              String           @id @unique @default(uuid())
-  title           String
+  title           String           @unique
   description     String
   display         Boolean          @default(true)
   thumbnailUrl    String
-  videoUrl        String
+  videoUrl        String           @unique
   teaserUrl       String
   isPublic        Boolean          @default(false)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   nbViews         Int              @default(0)
   duration        Float
-  category        Category         @relation(fields: [categoryId], references: [id])
+  category        Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId      String
-  users_favorites User[]           @relation("users_favorites")
+  favorites       Favorite[]
   tags            Tag[]
   sectionsStatics Section_Static[]
 }
 
 model Category {
   id              String            @id @unique @default(uuid())
-  name            String
+  name            String            @unique
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   videos          Video[]
@@ -54,8 +54,18 @@ model User {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   role             Role     @default(USER)
-  favorites_videos Video[]  @relation("users_favorites")
+  favorites        Favorite[]
 }
+
+model Favorite {
+  id               String          @id @unique @default(uuid())
+  createdAt        DateTime        @default(now())
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String
+  video            Video           @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  videoId          String
+}
+
 
 model Tag {
   id        String   @id @unique @default(uuid())
@@ -73,7 +83,7 @@ model Section_Dynamic {
   isGrid               Boolean                   @default(false)
   createdAt            DateTime                  @default(now())
   updatedAt            DateTime                  @updatedAt
-  categories           Category                  @relation(fields: [categoryId], references: [id])
+  categories           Category                  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId           String
   pagesSectionsDynamic Pages_Sections_Dynamics[]
 }
@@ -92,6 +102,7 @@ model Section_Static {
 model Page {
   id                   String                    @id @unique @default(uuid())
   title                String
+  display              Boolean                   @default(false)
   createdAt            DateTime                  @default(now())
   updatedAt            DateTime                  @updatedAt
   pagesSectionsStatic  Pages_Sections_Statics[]
@@ -117,7 +128,7 @@ model Pages_Sections_Dynamics {
   updatedAt         DateTime        @updatedAt
   pages             Page            @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId            String
-  sectionsDynamic   Section_Dynamic @relation(fields: [sectionsDynamicId], references: [id])
+  sectionsDynamic   Section_Dynamic @relation(fields: [sectionsDynamicId], references: [id], onDelete: Cascade)
   sectionsDynamicId String
 }
 
@@ -139,7 +150,7 @@ model Pages_Advertisings {
   updatedAt     DateTime    @updatedAt
   pages         Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId        String
-  advertisings  Advertising @relation(fields: [advertisingId], references: [id])
+  advertisings  Advertising @relation(fields: [advertisingId], references: [id], onDelete: Cascade)
   advertisingId String
 }
 

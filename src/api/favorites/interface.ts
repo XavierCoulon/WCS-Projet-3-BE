@@ -1,15 +1,17 @@
-import { Video } from "@prisma/client";
+import { Favorite, Video } from "@prisma/client";
 import { RequestHandler } from "express";
-import { ResponseError } from "../../interfaces/interfaces";
+import { ResponseError, ResponseValidation } from "../../interfaces/interfaces";
 
-type TFavorite = {
-  videoId?: string;
-  userId?: string;
-};
+type TFavoriteBody = Omit<Favorite, "id" | "createdAt">;
 
 export interface FavoriteHandlers {
-  add: RequestHandler<TFavorite, Video[] | ResponseError, TFavorite>;
-  remove: RequestHandler<TFavorite, Video[] | ResponseError, TFavorite>;
-  getAll: RequestHandler<TFavorite, Video[] | ResponseError, null>;
-  isFavorite: RequestHandler<TFavorite, boolean | ResponseError, TFavorite>;
+  getAll: RequestHandler<null, Video[] | ResponseError, null>;
+  getOne: RequestHandler<null, Favorite | ResponseError, null>;
+  create: RequestHandler<null, Favorite | ResponseError, TFavoriteBody>;
+  isFavorite: RequestHandler<null, Favorite | ResponseError | null, null>;
+  delete: RequestHandler<
+    { id: string },
+    ResponseValidation | ResponseError,
+    null
+  >;
 }
