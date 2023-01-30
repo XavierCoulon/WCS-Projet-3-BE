@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 const secret = process.env.JWT_SECRET || "secret";
-const getToken = (req: Request, res: Response) => {
+export const getToken = (req: Request, res: Response) => {
   const cookies = new Cookies(req, res);
   const headerToken = req.headers["authorization"]?.split(" ")[1];
   const headerCookie = cookies.get("token")?.split(" ")[1];
