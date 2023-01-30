@@ -4,6 +4,7 @@ import { Page } from ".prisma/client";
 
 type PageBody = {
   title: string;
+  display: boolean;
   pagesSectionsStatic?: {
     id: string;
   }[];
@@ -17,6 +18,7 @@ type PageBody = {
 
 type PageBodyWithSections = {
   title: string;
+  display: boolean;
   pagesSectionsStaticData?: {
     id: string;
     position: number;

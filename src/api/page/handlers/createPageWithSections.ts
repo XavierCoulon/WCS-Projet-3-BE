@@ -8,6 +8,7 @@ const createPageWithSections: PageHandlers["createWithSections"] = async (
   try {
     const {
       title,
+      display,
       pagesSectionsStaticData,
       pagesSectionsDynamicData,
       pagesAdvertisingsData,
@@ -15,6 +16,7 @@ const createPageWithSections: PageHandlers["createWithSections"] = async (
     const newPage = await prisma.page.create({
       data: {
         title,
+        display,
         pagesSectionsStatic: {
           create: pagesSectionsStaticData?.map((section) => ({
             position: section.position,
