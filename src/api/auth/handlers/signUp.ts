@@ -9,7 +9,7 @@ const signUp: AuthController["signUp"] = async (req, res) => {
   const cookies = new Cookies(req, res, {
     secure: process.env.NODE_ENV === "production",
   });
-
+  console.log(req.body);
   try {
     const { email, firstname, imageUrl, lastname, username } = req.body;
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);

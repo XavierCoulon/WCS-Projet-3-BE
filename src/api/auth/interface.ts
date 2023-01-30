@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { RequestHandler } from "express";
+import { JwtPayload } from "jsonwebtoken";
 import { ResponseError } from "../../interfaces/interfaces";
 
 type TUserwithoutPassword = Omit<User, "password">;
@@ -25,4 +26,5 @@ export interface AuthController {
     null
   >;
   signOut: RequestHandler<null, null, null, null>;
+  me: RequestHandler<any, JwtPayload | ResponseError>;
 }
