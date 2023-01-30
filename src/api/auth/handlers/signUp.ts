@@ -9,7 +9,6 @@ const signUp: AuthController["signUp"] = async (req, res) => {
   const cookies = new Cookies(req, res, {
     secure: process.env.NODE_ENV === "production",
   });
-  console.log(req.body);
   try {
     const { email, firstname, imageUrl, lastname, username } = req.body;
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -26,9 +25,7 @@ const signUp: AuthController["signUp"] = async (req, res) => {
 
     const { password: removedPassword, ...newUserWithoutPassword } = newUser;
     const secret = process.env.JWT_SECRET || "secret";
-    const token = jwt.sign(newUserWithoutPassword, secret, {
-      expiresIn: "10m",
-    });
+    const token = jwt.sign(newUserWithoutPassword, secret);
 
     cookies.set("token", `Bearer ${token}`, {
       secure: process.env.NODE_ENV === "production",

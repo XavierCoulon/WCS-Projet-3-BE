@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 const secret = process.env.JWT_SECRET || "secret";
 
 const authMeHandler: AuthController["me"] = async (req, res) => {
-  console.log("ME HANDLER");
   const token = getToken(req, res);
   if (!token) {
     return res.status(401).json({

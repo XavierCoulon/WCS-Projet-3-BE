@@ -25,7 +25,7 @@ const signIn: AuthController["signIn"] = async (req, res) => {
     }
     const { password: removedPassword, ...userWithoutPassword } = user;
     const secret = process.env.JWT_SECRET || "secret";
-    const token = jwt.sign(userWithoutPassword, secret, { expiresIn: "2h" });
+    const token = jwt.sign(userWithoutPassword, secret);
 
     cookies.set("token", `Bearer ${token}`, {
       secure: process.env.NODE_ENV === "production",
