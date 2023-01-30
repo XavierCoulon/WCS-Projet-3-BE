@@ -2,26 +2,30 @@
 import { FavoriteHandlers } from "../interface";
 import prisma from "../../../../prisma/client";
 
-const getAllVideos: FavoriteHandlers["getAll"] = async (req, res) => {
+const getAllFavorites: FavoriteHandlers["getAll"] = async (req, res) => {
   const { id } = req.user;
-  const { limit } = req.query;
+  // const { limit } = req.query;
 
   try {
-    const favoritesVideos = await prisma.user
-      .findUniqueOrThrow({
-        where: {
-          id,
-        },
-      })
-      .favorites_videos({
-        take: limit ? parseInt(String(limit)) : 1000,
-      });
+    const favorites = await prisma.favorite.findMany({
+      where: {
+        userId: id,
+      },
+      include: {
+        video: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-    res.status(200).json(favoritesVideos);
+    const videos = favorites.map((favorite) => favorite.video);
+
+    res.status(200).json(videos);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
   }
 };
 
-export default getAllVideos;
+export default getAllFavorites;

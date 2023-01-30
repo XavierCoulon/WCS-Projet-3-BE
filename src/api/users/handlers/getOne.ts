@@ -7,9 +7,6 @@ const getOneUser: UserHandlers["getOne"] = async (req, res) => {
     const { id } = req.params;
     const user = await prisma.user.findUniqueOrThrow({
       where: { id },
-      include: {
-        favorites_videos: true,
-      },
     });
 
     const { password: removedPassword, ...userWithoutPassword } = user;
