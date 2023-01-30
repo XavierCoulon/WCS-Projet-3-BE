@@ -7,9 +7,6 @@ const getOneVideo: VideoHandlers["getOne"] = async (req, res) => {
     const { id } = req.params;
     const video = await prisma.video.findFirstOrThrow({
       where: { id },
-      include: {
-        users_favorites: true,
-      },
     });
     res.status(200).json(video);
   } catch (error) {
