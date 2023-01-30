@@ -5,17 +5,12 @@ import CookieParser from "cookie-parser";
 const app = Express();
 
 import cors from "cors";
+import corsOptions from "./config/corsOptions";
 // Add a list of allowed origins.
 // If you have more origins you would like to add, you can add them to the array below.
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
 
 app.use(CookieParser());
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-); /* NEW */
+app.use(cors(corsOptions)); /* NEW */
 
 app.use(Express.json());
 
