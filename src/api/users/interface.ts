@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { RequestHandler } from "express";
 import { ResponseError, ResponseValidation } from "../../interfaces/interfaces";
 
@@ -16,6 +16,11 @@ export interface UserHandlers {
     { id: string },
     TUserWithoutPassword | ResponseError,
     TUserBody
+  >;
+  updateUsersRole: RequestHandler<
+    { id: string },
+    TUserWithoutPassword | ResponseError,
+    { role: Role; usersRequiringRole: "SUPER_ADMIN" }
   >;
   delete: RequestHandler<
     { id: string },
