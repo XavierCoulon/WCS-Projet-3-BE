@@ -11,6 +11,13 @@ const getOneSectionDynamic: SectionDynamicHandlers["getOne"] = async (
       where: {
         id: id,
       },
+      include: {
+        categories: {
+          include: {
+            videos: true,
+          },
+        },
+      },
     });
 
     res.status(200).json(section);

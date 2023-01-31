@@ -4,7 +4,9 @@ import prisma from "../../../../prisma/client";
 
 const getAllVideos: VideoHandlers["getAll"] = async (req, res) => {
   try {
+    const category: string | undefined = req.query.category as string;
     const videos = await prisma.video.findMany({
+      where: category ? { categoryId: category } : undefined,
       select: {
         id: true,
         display: true,
