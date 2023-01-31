@@ -20,7 +20,7 @@ export interface UserHandlers {
   updateUsersRole: RequestHandler<
     { id: string },
     TUserWithoutPassword | ResponseError,
-    { role: Role }
+    { role: Role; usersRequiringRole: "SUPER_ADMIN" }
   >;
   delete: RequestHandler<
     { id: string },
