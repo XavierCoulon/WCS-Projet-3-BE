@@ -6,7 +6,7 @@ type TVideoBody = Omit<Video, "id" | "createdAt" | "updatedAt" | "nbViews">;
 
 export interface VideoHandlers {
   getAll: RequestHandler<null, Video[] | ResponseError, null>;
-  getAllFavorites: RequestHandler<null, Video[] | ResponseError, null>;
+  search: RequestHandler<null, Video[] | ResponseError, null>;
   getOne: RequestHandler<{ id: string }, Video | ResponseError, null>;
   create: RequestHandler<null, Video | ResponseError, TVideoBody>;
   update: RequestHandler<{ id: string }, Video | ResponseError, TVideoBody>;
