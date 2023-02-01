@@ -4,7 +4,7 @@ import videoController from "./controller";
 const router = Router();
 
 router.get("/", videoController.getAll);
-router.get("/favorites", videoController.getAllFavorites);
+router.get("/search", videoController.search);
 router.get("/:id", videoController.getOne);
 router.post("/", videoController.create);
 router.put("/:id", videoController.update);
