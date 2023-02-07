@@ -28,8 +28,8 @@ const signUp: AuthController["signUp"] = async (req, res) => {
     const token = jwt.sign(newUserWithoutPassword, secret);
 
     cookies.set("token", `Bearer ${token}`, {
+      httpOnly: process.env.NODE_ENV === "production",
       secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
