@@ -7,7 +7,7 @@ const isFavorite: FavoriteHandlers["isFavorite"] = async (req, res) => {
   const { id } = req.user;
   try {
     const { videoId } = req.params || { videoId: "" };
-    const favorite: any = await prisma.favorite.findFirst({
+    const favorite = await prisma.favorite.findFirst({
       where: {
         userId: id,
         videoId: videoId,
