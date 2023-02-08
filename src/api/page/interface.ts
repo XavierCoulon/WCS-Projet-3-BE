@@ -43,11 +43,20 @@ export interface PageHandlers {
   getAll: RequestHandler<null, Page[] | ResponseError, null>;
   getOne: RequestHandler<{ id: string }, Page | ResponseError, null>;
   create: RequestHandler<null, Page | ResponseError, PageBody>;
-  update: RequestHandler<{ id: string }, Page | ResponseError, PageBody>;
+  update: RequestHandler<
+    { id: string },
+    Page | ResponseError,
+    PageBodyWithSections
+  >;
   delete: RequestHandler<{ id: string }, Page | ResponseError, null>;
   createWithSections: RequestHandler<
     null,
     Page | ResponseError,
     PageBodyWithSections
+  >;
+  disconnectSection: RequestHandler<
+    { id: string },
+    Page | ResponseError,
+    PageBody
   >;
 }
